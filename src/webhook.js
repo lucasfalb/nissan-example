@@ -30,11 +30,6 @@ export async function sendToWebhook(payload) {
       headers: { "Content-Type": "text/plain" },
       body: JSON.stringify(body),
     });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
     return { success: true };
   } catch (error) {
     console.error("[Webhook] Erro ao enviar:", error);
