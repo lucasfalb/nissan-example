@@ -72,7 +72,7 @@ export function createHeader({ currentPath, navigate, pageMeta }) {
         <details class="nav-group relative w-full md:w-auto">
           <summary class="${CLASSES.topLink} ${activeClass} list-none cursor-pointer justify-between md:justify-start">
             <span>${group.label}</span>
-            <svg class="nav-caret h-3.5 w-3.5 shrink-0 opacity-60 transition-transform duration-200 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="nav-caret h-6 w-6 shrink-0 opacity-60 transition-transform duration-200 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </summary>
