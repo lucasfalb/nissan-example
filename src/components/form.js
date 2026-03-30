@@ -2,7 +2,7 @@ import { pushEvent } from "../dataLayer.js";
 import {
   interestTypeOptions,
   modelInterestOptions,
-} from "../pages/route-config.js";
+} from "../lib/page-definitions.js";
 import { sendToWebhook } from "../webhook.js";
 
 const inputClassName =
@@ -141,7 +141,7 @@ function validateForm(form, pageMeta, formType) {
     const value = getFieldValue(form, fieldName);
     if (!value) {
       errors[fieldName] = {
-        message: "Campo obrigatório.",
+        message: "Campo obrigat\u00f3rio.",
         type: "required",
       };
     }
@@ -150,7 +150,7 @@ function validateForm(form, pageMeta, formType) {
   const email = getFieldValue(form, "email");
   if (email && !emailPattern.test(email)) {
     errors.email = {
-      message: "Introduza um e-mail válido.",
+      message: "Introduza um e-mail v\u00e1lido.",
       type: "invalid_email",
     };
   }
@@ -158,7 +158,7 @@ function validateForm(form, pageMeta, formType) {
   const phone = getFieldValue(form, "phone");
   if (phone && !isValidPhoneNumber(phone)) {
     errors.phone = {
-      message: "Introduza um telefone válido.",
+      message: "Introduza um telefone v\u00e1lido.",
       type: "invalid_phone",
     };
   }
@@ -170,7 +170,8 @@ function validateForm(form, pageMeta, formType) {
       page_model: pageMeta.pageModel,
       page_path: window.location.pathname,
       error_field: fieldName,
-      error_type: fieldError.type || getErrorType(fieldName, getFieldValue(form, fieldName)),
+      error_type:
+        fieldError.type || getErrorType(fieldName, getFieldValue(form, fieldName)),
     });
   }
 
@@ -195,9 +196,9 @@ function renderTypeFields(formType, pageConfig) {
 
   return `
     <div class="field-block relative">
-      <label class="${labelClassName}" for="version">Versão</label>
+      <label class="${labelClassName}" for="version">Vers\u00e3o</label>
       <select class="${inputClassName}" id="version" name="version" required>
-        ${buildSelectOptions(pageConfig.versions, "Selecionar versão")}
+        ${buildSelectOptions(pageConfig.versions, "Selecionar vers\u00e3o")}
       </select>
     </div>
     <div class="field-block form-fieldset relative">
@@ -234,16 +235,16 @@ export function createLeadForm({ pageConfig, pageMeta }) {
           </p>
           <ul class="m-0 grid gap-3 p-0">
             <li class="flex list-none items-start gap-3 text-[14px] leading-tight text-neutral-200">
-              <span class="font-bold text-[#c3002f]">—</span>
-              <span>Resposta comercial mais rápida e focada no modelo escolhido.</span>
+              <span class="font-bold text-[#c3002f]">-</span>
+              <span>Resposta comercial mais r\u00e1pida e focada no modelo escolhido.</span>
             </li>
             <li class="flex list-none items-start gap-3 text-[14px] leading-tight text-neutral-200">
-              <span class="font-bold text-[#c3002f]">—</span>
-              <span>Proposta, catálogo ou test drive tratados no mesmo pedido.</span>
+              <span class="font-bold text-[#c3002f]">-</span>
+              <span>Proposta, cat\u00e1logo ou test drive tratados no mesmo pedido.</span>
             </li>
             <li class="flex list-none items-start gap-3 text-[14px] leading-tight text-neutral-200">
-              <span class="font-bold text-[#c3002f]">—</span>
-              <span>Contacto simples, sem passos desnecessários.</span>
+              <span class="font-bold text-[#c3002f]">-</span>
+              <span>Contacto simples, sem passos desnecess\u00e1rios.</span>
             </li>
           </ul>
         </div>
@@ -253,9 +254,9 @@ export function createLeadForm({ pageConfig, pageMeta }) {
         <div class="rounded-[32px] border border-neutral-200 bg-white p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)] md:p-7">
           <div class="mb-5 border-b border-neutral-100 pb-4">
             <p class="mb-2 text-[11px] uppercase tracking-[0.09rem] text-neutral-500">${pageConfig.categoryLabel}</p>
-            <h2 class="m-0 text-[24px] uppercase leading-[1.1] text-neutral-950">Peça contacto</h2>
+            <h2 class="m-0 text-[24px] uppercase leading-[1.1] text-neutral-950">Pe\u00e7a contacto</h2>
             <p class="mt-3 max-w-[44ch] text-[14px] leading-[1.6] text-neutral-600">
-              Um formulário objetivo, com campos claros e sem excesso de informação.
+              Um formul\u00e1rio objetivo, com campos claros e sem excesso de informa\u00e7\u00e3o.
             </p>
           </div>
 
@@ -480,7 +481,7 @@ export function createLeadForm({ pageConfig, pageMeta }) {
       success.className =
         "rounded-[16px] border border-green-300 bg-green-50 px-4 py-3 text-[13px] text-green-800";
       success.textContent =
-        "Pedido enviado com sucesso. Um consultor poderá acompanhar o seu interesse a partir deste pedido.";
+        "Pedido enviado com sucesso. Um consultor poder\u00e1 acompanhar o seu interesse a partir deste pedido.";
       feedback.replaceChildren(success);
       form.reset();
       form.dataset.started = "false";
@@ -498,7 +499,7 @@ export function createLeadForm({ pageConfig, pageMeta }) {
       failure.className =
         "rounded-[16px] border border-red-300 bg-red-50 px-4 py-3 text-[13px] text-red-800";
       failure.textContent =
-        "Não foi possível enviar o pedido agora. Tente novamente dentro de instantes.";
+        "N\u00e3o foi poss\u00edvel enviar o pedido agora. Tente novamente dentro de instantes.";
       feedback.replaceChildren(failure);
       console.error("[LeadForm] Erro ao enviar pedido:", error);
     } finally {

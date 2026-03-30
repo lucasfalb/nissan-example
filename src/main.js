@@ -16,23 +16,12 @@ import {
   peekNavigationContext,
   setNavigationContext,
 } from "./lib/navigation-context.js";
+import { pageDefinitions } from "./lib/page-definitions.js";
 import { GTM_ID } from "./lib/env.js";
 import { initGoogleTagManager } from "./lib/gtm.js";
 import { applySeoMetadata } from "./lib/seo.js";
 import { startViewTransition } from "./lib/view-transitions.js";
 import { HOME_SLIDES } from "./model-banners.js";
-
-import happinissDaysPage from "./pages/happiniss-days.js";
-import nissanAriyaPage from "./pages/nissan-ariya.js";
-import nissanJukeStandalonePage from "./pages/nissan-juke.js";
-import nissanLeafPage from "./pages/nissan-leaf.js";
-import nissanQashqaiPage from "./pages/nissan-qashqai.js";
-import nissanXTrailPage from "./pages/nissan-x-trail.js";
-import novoMicraPage from "./pages/novo-micra.js";
-import novoNissanJukePage from "./pages/novo-nissan-juke.js";
-import popupPage from "./pages/popup.js";
-import usadosJukePage from "./pages/usados-juke.js";
-import usadosQashqaiPage from "./pages/usados-qashqai.js";
 
 initGoogleTagManager(GTM_ID);
 
@@ -44,67 +33,67 @@ const routes = {
     pageCategory: "models_hub",
   },
   "/popup/": {
-    ...popupPage,
+    ...pageDefinitions["/popup/"],
     pageType: "campaign_page",
     pageModel: null,
     pageCategory: "campaign",
   },
   "/happiniss-days/": {
-    ...happinissDaysPage,
+    ...pageDefinitions["/happiniss-days/"],
     pageType: "campaign_page",
     pageModel: null,
     pageCategory: "campaign",
   },
   "/modelos/nissan-leaf/": {
-    ...nissanLeafPage,
+    ...pageDefinitions["/modelos/nissan-leaf/"],
     pageType: "model_page",
     pageModel: "nissan-leaf",
     pageCategory: "new_model",
   },
   "/modelos/nissan-ariya/": {
-    ...nissanAriyaPage,
+    ...pageDefinitions["/modelos/nissan-ariya/"],
     pageType: "model_page",
     pageModel: "nissan-ariya",
     pageCategory: "new_model",
   },
   "/modelos/nissan-qashqai/": {
-    ...nissanQashqaiPage,
+    ...pageDefinitions["/modelos/nissan-qashqai/"],
     pageType: "model_page",
     pageModel: "nissan-qashqai",
     pageCategory: "new_model",
   },
   "/modelos/nissan-x-trail/": {
-    ...nissanXTrailPage,
+    ...pageDefinitions["/modelos/nissan-x-trail/"],
     pageType: "model_page",
     pageModel: "nissan-x-trail",
     pageCategory: "new_model",
   },
   "/modelos/novo-nissan-juke/": {
-    ...novoNissanJukePage,
+    ...pageDefinitions["/modelos/novo-nissan-juke/"],
     pageType: "model_page",
     pageModel: "nissan-juke",
     pageCategory: "new_model",
   },
   "/modelos/novo-micra/": {
-    ...novoMicraPage,
+    ...pageDefinitions["/modelos/novo-micra/"],
     pageType: "model_page",
     pageModel: "nissan-micra",
     pageCategory: "new_model",
   },
   "/usados-juke/": {
-    ...usadosJukePage,
+    ...pageDefinitions["/usados-juke/"],
     pageType: "used_page",
     pageModel: "nissan-juke",
     pageCategory: "used",
   },
   "/usados-qashqai/": {
-    ...usadosQashqaiPage,
+    ...pageDefinitions["/usados-qashqai/"],
     pageType: "used_page",
     pageModel: "nissan-qashqai",
     pageCategory: "used",
   },
   "/nissan-juke/": {
-    ...nissanJukeStandalonePage,
+    ...pageDefinitions["/nissan-juke/"],
     pageType: "standalone_page",
     pageModel: "nissan-juke",
     pageCategory: "standalone",
@@ -134,8 +123,8 @@ const featuredCards = HOME_SLIDES.map((slide) => ({
 
 const allModelCards = [
   {
-    title: nissanLeafPage.title,
-    description: nissanLeafPage.subtitle,
+    title: pageDefinitions["/modelos/nissan-leaf/"].title,
+    description: pageDefinitions["/modelos/nissan-leaf/"].subtitle,
     path: "/modelos/nissan-leaf/",
     bannerKey: "NISSAN_LEAF",
     transitionKey: "/modelos/nissan-leaf/",
@@ -143,8 +132,8 @@ const allModelCards = [
     section: "models_hub",
   },
   {
-    title: nissanAriyaPage.title,
-    description: nissanAriyaPage.subtitle,
+    title: pageDefinitions["/modelos/nissan-ariya/"].title,
+    description: pageDefinitions["/modelos/nissan-ariya/"].subtitle,
     path: "/modelos/nissan-ariya/",
     bannerKey: "NISSAN_ARIYA",
     transitionKey: "/modelos/nissan-ariya/",
@@ -152,8 +141,8 @@ const allModelCards = [
     section: "models_hub",
   },
   {
-    title: nissanQashqaiPage.title,
-    description: nissanQashqaiPage.subtitle,
+    title: pageDefinitions["/modelos/nissan-qashqai/"].title,
+    description: pageDefinitions["/modelos/nissan-qashqai/"].subtitle,
     path: "/modelos/nissan-qashqai/",
     bannerKey: "NISSAN_QASHQAI",
     transitionKey: "/modelos/nissan-qashqai/",
@@ -161,8 +150,8 @@ const allModelCards = [
     section: "models_hub",
   },
   {
-    title: nissanXTrailPage.title,
-    description: nissanXTrailPage.subtitle,
+    title: pageDefinitions["/modelos/nissan-x-trail/"].title,
+    description: pageDefinitions["/modelos/nissan-x-trail/"].subtitle,
     path: "/modelos/nissan-x-trail/",
     bannerKey: "NISSAN_X_TRAIL",
     transitionKey: "/modelos/nissan-x-trail/",
@@ -170,8 +159,8 @@ const allModelCards = [
     section: "models_hub",
   },
   {
-    title: novoNissanJukePage.title,
-    description: novoNissanJukePage.subtitle,
+    title: pageDefinitions["/modelos/novo-nissan-juke/"].title,
+    description: pageDefinitions["/modelos/novo-nissan-juke/"].subtitle,
     path: "/modelos/novo-nissan-juke/",
     bannerKey: "NOVO_NISSAN_JUKE",
     transitionKey: "/modelos/novo-nissan-juke/",
@@ -179,8 +168,8 @@ const allModelCards = [
     section: "models_hub",
   },
   {
-    title: novoMicraPage.title,
-    description: novoMicraPage.subtitle,
+    title: pageDefinitions["/modelos/novo-micra/"].title,
+    description: pageDefinitions["/modelos/novo-micra/"].subtitle,
     path: "/modelos/novo-micra/",
     bannerKey: "NOVO_MICRA",
     transitionKey: "/modelos/novo-micra/",
