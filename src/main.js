@@ -290,6 +290,7 @@ function navigate(
     () => {
       history[replace ? "replaceState" : "pushState"]({}, "", normalizedPath);
       render();
+      flushPageEntrance();
     },
     {
       beforeTransition: () => {
@@ -297,7 +298,6 @@ function navigate(
           setPageTransitionEnabled(false);
         }
       },
-      afterTransition: flushPageEntrance,
     },
   ).finally(() => {
     if (disablePageTransition) {
