@@ -18,16 +18,17 @@ export async function sendToWebhook(payload) {
       version: payload.version ?? null,
       model_interest: payload.model_interest ?? null,
       interest_type: payload.interest_type ?? null,
-      message: payload.message ?? null
+      message: payload.message ?? null,
     },
-    datalayer_snapshot: [...(window.dataLayer || [])]
+    datalayer_snapshot: [...(window.dataLayer || [])],
   };
 
   try {
     const response = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {
@@ -36,7 +37,7 @@ export async function sendToWebhook(payload) {
 
     return { success: true };
   } catch (error) {
-    console.error('[Webhook] Erro ao enviar:', error);
+    console.error("[Webhook] Erro ao enviar:", error);
     return { success: false, error: error.message };
   }
 }
