@@ -278,6 +278,7 @@ function navigate(
 ) {
   const normalizedPath = normalizePath(path);
   const currentPath = normalizePath(window.location.pathname);
+  const disablePageTransition = source === "card";
 
   if (!replace && normalizedPath === currentPath) {
     return Promise.resolve();
@@ -291,9 +292,18 @@ function navigate(
       render();
     },
     {
+      beforeTransition: () => {
+        if (disablePageTransition) {
+          setPageTransitionEnabled(false);
+        }
+      },
       afterTransition: flushPageEntrance,
     },
-  );
+  ).finally(() => {
+    if (disablePageTransition) {
+      setPageTransitionEnabled(true);
+    }
+  });
 }
 
 function getRouteMeta(path) {
@@ -554,6 +564,11 @@ function getShellRefs() {
 function renderPageContent(content) {
   const { pageSlot } = getShellRefs();
   pageSlot.replaceChildren(content);
+}
+
+function setPageTransitionEnabled(enabled) {
+  const { pageSlot } = getShellRefs();
+  pageSlot.style.viewTransitionName = enabled ? "page-main" : "none";
 }
 
 function activatePageEntrance(content) {

@@ -30,7 +30,7 @@ export function createFeaturedCard(card) {
       </div>
       <div class="featured-card__body pt-4">
         <span class="featured-card__eyebrow mb-2 block text-[11px] uppercase tracking-[0.09rem] text-neutral-500">Descubra o modelo</span>
-        <h3 class="featured-card__title mb-2 text-[22px] uppercase leading-[1.1] text-neutral-950" >${card.title}</h3>
+        <h3 class="featured-card__title mb-2 text-[22px] uppercase leading-[1.1] text-neutral-950" data-transition-part="card-title">${card.title}</h3>
         <p class="featured-card__description text-[14px] leading-[1.6] text-neutral-600">${card.description}</p>
       </div>
     </a>
