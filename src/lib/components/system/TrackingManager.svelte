@@ -10,7 +10,7 @@
   }
 
   onMount(() => {
-    initGoogleTagManager(import.meta.env.VITE_GTM_ID);
+    initGoogleTagManager(import.meta.env.PUBLIC_GTM_ID);
     trackPageView(window.location.pathname);
 
     return afterNavigate(({ to }) => {

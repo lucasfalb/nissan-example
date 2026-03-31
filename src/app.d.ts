@@ -8,6 +8,20 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	const process: {
+		cwd(): string;
+	};
+}
+
+declare module 'node:fs' {
+	export function statSync(path: string): {
+		mtime: Date;
+	};
+}
+
+declare module 'node:path' {
+	export function join(...paths: string[]): string;
 }
 
 export {};

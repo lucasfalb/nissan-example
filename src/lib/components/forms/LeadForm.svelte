@@ -133,6 +133,10 @@
       }
     }
 
+    if (!consent) {
+      nextErrors.consent = "Campo obrigatorio.";
+    }
+
     if (email && !emailPattern.test(email.trim())) {
       nextErrors.email = "Introduza um e-mail valido.";
     }
@@ -414,7 +418,9 @@
               onfocus={handleStart}
               oninput={() => handleFieldInput("name")}
             />
-            {#if errors.name}<div class="mt-2 text-[11px] text-[#c3002f]">
+            {#if errors.name}<div
+                class="absolute right-0 top-0 text-[11px] normal-case tracking-normal text-[#c3002f]"
+              >
                 {errors.name}
               </div>{/if}
           </div>
@@ -437,7 +443,9 @@
               onfocus={handleStart}
               oninput={() => handleFieldInput("email")}
             />
-            {#if errors.email}<div class="mt-2 text-[11px] text-[#c3002f]">
+            {#if errors.email}<div
+                class="absolute right-0 top-0 text-[11px] normal-case tracking-normal text-[#c3002f]"
+              >
                 {errors.email}
               </div>{/if}
           </div>
@@ -461,7 +469,9 @@
             onfocus={handleStart}
             oninput={() => handleFieldInput("phone")}
           />
-          {#if errors.phone}<div class="mt-2 text-[11px] text-[#c3002f]">
+          {#if errors.phone}<div
+              class="absolute right-0 top-0 text-[11px] normal-case tracking-normal text-[#c3002f]"
+            >
               {errors.phone}
             </div>{/if}
         </div>
@@ -487,7 +497,7 @@
               {/each}
             </select>
             {#if errors.model_interest}<div
-                class="mt-2 text-[11px] text-[#c3002f]"
+                class="absolute right-0 top-0 text-[11px] normal-case tracking-normal text-[#c3002f]"
               >
                 {errors.model_interest}
               </div>{/if}
@@ -530,7 +540,9 @@
                 {/each}
               {/if}
             </select>
-            {#if errors.version}<div class="mt-2 text-[11px] text-[#c3002f]">
+            {#if errors.version}<div
+                class="absolute right-0 top-0 text-[11px] normal-case tracking-normal text-[#c3002f]"
+              >
                 {errors.version}
               </div>{/if}
           </div>
@@ -555,7 +567,7 @@
               {/each}
             </select>
             {#if errors.interest_type}<div
-                class="mt-2 text-[11px] text-[#c3002f]"
+                class="absolute right-0 top-0 text-[11px] normal-case tracking-normal text-[#c3002f]"
               >
                 {errors.interest_type}
               </div>{/if}
@@ -563,15 +575,22 @@
         {/if}
 
         <label
-          class="flex cursor-pointer gap-3 rounded-[20px] border border-neutral-200 bg-neutral-50 px-4 py-4 text-[13px] leading-[1.6] text-neutral-600 transition hover:border-neutral-300 sm:items-center"
+          class="relative flex cursor-pointer gap-3 rounded-[20px] border border-neutral-200 bg-neutral-50 px-4 py-4 text-[13px] leading-[1.6] text-neutral-600 transition hover:border-neutral-300 sm:items-center"
         >
           <input
             bind:checked={consent}
             type="checkbox"
+            required
             name="consent"
-            class="mt-1 h-4 w-4 rounded border-neutral-300 accent-[#c3002f]"
+            class="h-4 w-4 rounded border-neutral-300 accent-[#c3002f]"
+            onchange={() => clearFieldError("consent")}
           />
           <span>Aceito ser contactado para seguimento deste pedido.</span>
+          {#if errors.consent}<div
+              class="absolute right-4 top-1 text-[11px] normal-case tracking-normal text-[#c3002f]"
+            >
+              {errors.consent}
+            </div>{/if}
         </label>
 
         {#if feedback}

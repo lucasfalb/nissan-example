@@ -12,7 +12,7 @@ type LeadPayload = {
 };
 
 export async function sendToWebhook(payload: LeadPayload) {
-  const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
+  const webhookUrl = import.meta.env.PUBLIC_WEBHOOK_URL;
 
   if (!webhookUrl) {
     return { success: false, error: 'Webhook não configurado.' };
