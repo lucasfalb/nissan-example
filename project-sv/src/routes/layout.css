@@ -1,0 +1,240 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: "Nissan Brand";
+  src: url("/assets/NissanBrandW01-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nissan Brand";
+  src: url("/assets/NissanBrandW01-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nissan Brand";
+  src: url("/assets/NissanBrandW01-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-primary: "Nissan Brand", "Helvetica Neue", Arial, sans-serif;
+}
+html {
+  font-size: 62.5%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: 1.4rem;
+  background: #ffffff;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+@supports (view-transition-name: root) {
+  .site-page-content {
+    view-transition-name: page-main;
+  }
+
+  ::view-transition-group(page-main) {
+    animation-duration: 760ms;
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  ::view-transition-old(page-main) {
+    animation: 380ms cubic-bezier(0.33, 1, 0.68, 1) both fade-out;
+    pointer-events: none;
+    transform-origin: 50% 20%;
+  }
+
+  ::view-transition-new(page-main) {
+    animation: 620ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both slide-up-fade-in;
+    mix-blend-mode: normal;
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+
+    to {
+      opacity: 0;
+      transform: scale(0.985) translateY(14px);
+      filter: blur(3px);
+    }
+  }
+
+  @keyframes slide-up-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+      filter: blur(12px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  @supports (view-transition-name: root) {
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    ::view-transition-old(page-main),
+    ::view-transition-new(page-main) {
+      animation-duration: 1ms;
+    }
+
+    ::view-transition-old(page-main),
+    ::view-transition-new(page-main) {
+      animation-name: none;
+      filter: none;
+      transform: none;
+    }
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.nav-menu {
+  display: none;
+}
+
+.nav-group[open] .nav-menu {
+  display: grid;
+}
+
+.nav-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-caret {
+  transform-origin: 50% 50%;
+}
+
+.nav-group[open] .nav-caret {
+  transform: rotate(180deg);
+}
+
+#home-slideshow-link img,
+#home-slideshow-container {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.featured-card {
+  position: relative;
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.featured-card:hover,
+.featured-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: #d4d4d4;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+.featured-card:focus-visible {
+  outline: 2px solid rgba(195, 0, 47, 0.18);
+  outline-offset: 4px;
+}
+
+.featured-card__visual {
+  overflow: hidden;
+}
+
+.featured-card__visual img {
+  transform: scale(1);
+  transition:
+    transform 320ms ease,
+    filter 220ms ease;
+}
+
+.featured-card:hover .featured-card__visual img,
+.featured-card:focus-visible .featured-card__visual img {
+  transform: scale(1.03);
+  filter: saturate(1.02);
+}
+
+.featured-card__body {
+  position: relative;
+  padding: 1.8rem 2rem 2.2rem;
+}
+
+.featured-card__title {
+  transition: color 220ms ease;
+}
+
+.featured-card:hover .featured-card__title,
+.featured-card:focus-visible .featured-card__title {
+  color: #c3002f;
+}
+
+.site-footer {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at top right, rgba(195, 0, 47, 0.12), transparent 32%),
+    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.06), transparent 28%),
+    #000;
+}
+
+.footer-link {
+  color: #fff;
+  transition:
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: #fff;
+  transform: translateX(2px);
+}
