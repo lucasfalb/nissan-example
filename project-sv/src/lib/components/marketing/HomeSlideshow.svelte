@@ -4,6 +4,7 @@
   import { onMount } from "svelte";
   import { getBannerUrl } from "$lib/content/model-banners";
   import type { HomeSlide } from "$lib/types/content";
+  import { setPendingNavigationContext } from '$lib/utils/view-transition-context';
 
   const DRAG_CLICK_THRESHOLD = 10;
   const slideDuration = 5000;
@@ -80,6 +81,13 @@
     if (!currentSlide) {
       return;
     }
+
+    setPendingNavigationContext({
+      from: window.location.pathname,
+      to: currentSlide.path,
+      source: 'card',
+      transitionKey: currentSlide.path
+    });
 
     await goto(currentSlide.path);
   }

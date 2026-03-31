@@ -224,7 +224,7 @@
 
       feedback = {
         type: "error",
-        text: "Nao foi possivel enviar o pedido agora. Tente novamente dentro de instantes.",
+        text: "Não foi possível enviar o pedido agora. Tente novamente dentro de instantes.",
       };
       isSubmitting = false;
       return;
@@ -251,6 +251,29 @@
       return;
     }
 
+    const onLeadInterest = (event: Event) => {
+      if (!(event instanceof CustomEvent)) {
+        return;
+      }
+
+      if (isTypeA) {
+        formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const nextInterestType = String(event.detail?.interestType || "").trim();
+      if (!nextInterestType) {
+        return;
+      }
+
+      interestType = nextInterestType;
+      clearFieldError("interest_type");
+      trackFieldInteraction("interest_type");
+      formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    window.addEventListener("app:lead-interest", onLeadInterest);
+
     if (!("IntersectionObserver" in window)) {
       pushEvent("form_view", {
         form_id: formId,
@@ -258,7 +281,9 @@
         page_type: pageType,
         page_model: pageModel,
       });
-      return;
+      return () => {
+        window.removeEventListener("app:lead-interest", onLeadInterest);
+      };
     }
 
     let hasTrackedView = false;
@@ -282,9 +307,9 @@
     );
 
     observer.observe(formElement);
-
     return () => {
       observer.disconnect();
+      window.removeEventListener("app:lead-interest", onLeadInterest);
     };
   });
 </script>
@@ -326,14 +351,14 @@
         >
           <span class="font-bold text-[#c3002f]">-</span>
           <span
-            >Resposta comercial mais rapida e focada no modelo escolhido.</span
+            >Resposta comercial mais rápida e focada no modelo escolhido.</span
           >
         </li>
         <li
           class="flex list-none items-start gap-3 text-[14px] leading-tight text-neutral-200"
         >
           <span class="font-bold text-[#c3002f]">-</span>
-          <span>Proposta, catalogo ou test drive tratados no mesmo pedido.</span
+          <span>Proposta, catálogo ou test drive tratados no mesmo pedido.</span
           >
         </li>
         <li
@@ -357,10 +382,10 @@
           {page.categoryLabel}
         </p>
         <h2 class="m-0 text-[24px] uppercase leading-[1.1] text-neutral-950">
-          Peca contacto
+          Peça contacto
         </h2>
         <p class="mt-3 max-w-[44ch] text-[14px] leading-[1.6] text-neutral-600">
-          Um formulario objetivo, com campos claros e sem excesso de informacao.
+          Um formulário objetivo, com campos claros e sem excesso de informação.
         </p>
       </div>
 
@@ -487,7 +512,7 @@
           <div class="relative">
             <label
               class="mb-2 block text-[11px] font-semibold uppercase tracking-[0.09rem] text-neutral-700"
-              for="version">Versao</label
+              for="version">Versão</label
             >
             <select
               bind:value={version}
@@ -498,7 +523,7 @@
               onfocus={handleStart}
               onchange={() => handleFieldInput("version")}
             >
-              <option value="">Selecionar versao</option>
+              <option value="">Selecionar versão</option>
               {#if "versions" in page}
                 {#each page.versions as option}
                   <option value={option}>{option}</option>

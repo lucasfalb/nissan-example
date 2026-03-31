@@ -10,5 +10,5 @@ export const modelInterestOptions = [
 export const interestTypeOptions = [
   { value: 'test_drive', label: 'Test Drive' },
   { value: 'proposal', label: 'Proposta' },
-  { value: 'more_info', label: 'Mais Informacao' }
+  { value: 'more_info', label: 'Mais Informação' }
 ] as const;

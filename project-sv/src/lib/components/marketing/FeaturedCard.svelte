@@ -4,6 +4,10 @@
   import BannerFrame from "$lib/components/marketing/BannerFrame.svelte";
   import { getRouteMeta } from "$lib/utils/route-meta";
   import { pushEvent } from "$lib/utils/tracking";
+  import {
+    setPendingNavigationContext,
+    toTransitionToken,
+  } from "$lib/utils/view-transition-context";
 
   let { card } = $props<{
     card: {
@@ -19,7 +23,29 @@
     };
   }>();
 
-  function trackCardClick() {
+  function primeCardTransition(link: HTMLAnchorElement) {
+    const transitionKey = toTransitionToken(card.transitionKey ?? card.path);
+
+    const title = link.querySelector('[data-transition-part="card-title"]');
+
+    if (title instanceof HTMLElement) {
+      title.style.viewTransitionName = `card-title-${transitionKey}`;
+    }
+  }
+
+  function trackCardClick(event: MouseEvent) {
+    const link = event.currentTarget;
+    if (link instanceof HTMLAnchorElement) {
+      primeCardTransition(link);
+    }
+
+    setPendingNavigationContext({
+      from: page.url.pathname,
+      to: card.path,
+      source: 'card',
+      transitionKey: card.transitionKey ?? card.path
+    });
+
     pushEvent("model_card_click", {
       ...getRouteMeta(page.url.pathname),
       destination_path: card.path,
@@ -39,9 +65,6 @@
       bannerKey={card.bannerKey}
       title={card.title}
       className="min-h-[180px] sm:min-h-[260px]"
-      transitionName={card.transitionKey
-        ? `card-banner-${card.transitionKey}`
-        : undefined}
       fallbackLabel="Cole o URL do banner deste modelo"
     />
   </div>
@@ -52,10 +75,8 @@
       {card.eyebrow ?? "Descubra o modelo"}
     </span>
     <h3
+      data-transition-part="card-title"
       class="featured-card__title mb-2 text-[22px] uppercase leading-[1.1] text-neutral-950"
-      style:view-transition-name={card.transitionKey
-        ? `card-title-${card.transitionKey}`
-        : undefined}
     >
       {card.title}
     </h3>

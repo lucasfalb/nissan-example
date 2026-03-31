@@ -7,6 +7,7 @@
 
   let mobileOpen = $state(false);
   let openDesktopGroup = $state<string | null>(null);
+  let headerElement: HTMLElement | undefined;
 
   function isActive(
     path?: string,
@@ -38,14 +39,17 @@
   }
 
   onMount(() => {
-    const onWindowClick = (event: MouseEvent) => {
+    const onWindowPointerDown = (event: PointerEvent) => {
       const target = event.target;
       if (!(target instanceof Node)) {
         return;
       }
 
-      const insideHeader = (target as HTMLElement).closest("header");
-      if (!insideHeader) {
+      const clickedInsideOpenDesktopGroup = target instanceof HTMLElement
+        ? Boolean(target.closest('.nav-group'))
+        : false;
+
+      if (!clickedInsideOpenDesktopGroup) {
         closeAllMenus();
       }
     };
@@ -56,17 +60,18 @@
       }
     };
 
-    window.addEventListener("click", onWindowClick);
+    window.addEventListener("pointerdown", onWindowPointerDown, true);
     window.addEventListener("keydown", onWindowKeyDown);
 
     return () => {
-      window.removeEventListener("click", onWindowClick);
+      window.removeEventListener("pointerdown", onWindowPointerDown, true);
       window.removeEventListener("keydown", onWindowKeyDown);
     };
   });
 </script>
 
 <header
+  bind:this={headerElement}
   class="sticky top-0 z-[9999] border-t-4 border-t-neutral-950 border-b border-b-neutral-200 bg-white/95 backdrop-blur"
 >
   <div
@@ -75,7 +80,7 @@
     <a
       href="/"
       class="inline-flex items-center"
-      aria-label="Nissan - Pagina inicial"
+      aria-label="Nissan - Página inicial"
       onclick={() => trackHeaderClick("/", "Logo Nissan", "brand")}
     >
       <img src="/assets/nissan.svg" alt="Nissan" class="h-6 w-auto sm:h-8" />
@@ -128,8 +133,10 @@
               {#each group.items as item}
                 <a
                   href={item.path}
-                  onclick={() =>
-                    trackHeaderClick(item.path, item.label, group.label)}
+                  onclick={() => {
+                    trackHeaderClick(item.path, item.label, group.label);
+                    closeAllMenus();
+                  }}
                   class={`block px-3 py-2 text-[13px] font-normal text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-950 ${page.url.pathname === item.path ? "bg-neutral-100 text-neutral-950" : ""}`}
                 >
                   {item.label}

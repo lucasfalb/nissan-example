@@ -8,7 +8,7 @@ export const entries: EntryGenerator = () => usedSlugs.map((slug) => ({ slug }))
 
 export const load: PageLoad = ({ params, url }) => {
   if (!usedSlugs.includes(params.slug as (typeof usedSlugs)[number])) {
-    throw error(404, 'Usado nao encontrado');
+    throw error(404, 'Usado não encontrado');
   }
 
   const page = pageDefinitions[params.slug as keyof typeof pageDefinitions];

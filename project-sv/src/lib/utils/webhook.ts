@@ -15,7 +15,7 @@ export async function sendToWebhook(payload: LeadPayload) {
   const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
 
   if (!webhookUrl) {
-    return { success: false, error: 'Webhook nao configurado.' };
+    return { success: false, error: 'Webhook não configurado.' };
   }
 
   const body = {

@@ -2,6 +2,10 @@
   import LeadForm from "$lib/components/forms/LeadForm.svelte";
   import Hero from "$lib/components/marketing/Hero.svelte";
   import type { PageDefinition } from "$lib/types/content";
+  import {
+    consumePendingNavigationContext,
+    normalizeTransitionPath,
+  } from "$lib/utils/view-transition-context";
 
   let { page, seo } = $props<{
     page: PageDefinition;
@@ -11,6 +15,16 @@
       canonicalUrl: string;
     };
   }>();
+
+  const navigationContext = consumePendingNavigationContext();
+  const canonicalPath = $derived(
+    normalizeTransitionPath(new URL(seo.canonicalUrl).pathname),
+  );
+  const transitionKey = $derived(
+    navigationContext?.to === canonicalPath
+      ? navigationContext.transitionKey
+      : null,
+  );
 </script>
 
 <svelte:head>
@@ -25,5 +39,6 @@
   subtitle={page.subtitle}
   bannerKey={page.bannerKey}
   ctas={page.ctas}
+  transitionKey={transitionKey ?? undefined}
 />
 <LeadForm {page} />
