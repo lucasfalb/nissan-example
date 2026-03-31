@@ -322,7 +322,7 @@
   class="relative z-10 mx-auto -mt-32 grid w-[min(95.9%,1170px)] rounded-t-[32px] gap-5 rounded-t-4xl border border-neutral-200/70 border-b-0 bg-white p-5 md:gap-6 md:p-7 lg:grid-cols-[minmax(280px,0.72fr)_minmax(420px,0.95fr)] lg:p-8"
 >
   <div
-    class="order-2 my-auto grid h-fit content-start gap-6 rounded-[32px] border border-neutral-200/50 bg-linear-to-b from-[#fafafa] to-[#f3f4f6] p-6 md:p-8 lg:order-1"
+    class="order-2 grid h-fit content-start gap-6 rounded-[32px] border border-neutral-200/50 bg-linear-to-b from-[#fafafa] to-[#f3f4f6] p-6 md:p-8 lg:order-1"
     data-form-stage="panel"
   >
     <div>

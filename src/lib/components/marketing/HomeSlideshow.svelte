@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import { getBannerUrl } from "$lib/content/model-banners";
   import type { HomeSlide } from "$lib/types/content";
-  import { setPendingNavigationContext } from '$lib/utils/view-transition-context';
+  import { setPendingNavigationContext } from "$lib/utils/view-transition-context";
 
   const DRAG_CLICK_THRESHOLD = 10;
   const slideDuration = 5000;
@@ -85,8 +85,8 @@
     setPendingNavigationContext({
       from: window.location.pathname,
       to: currentSlide.path,
-      source: 'card',
-      transitionKey: currentSlide.path
+      source: "card",
+      transitionKey: currentSlide.path,
     });
 
     await goto(currentSlide.path);
@@ -215,7 +215,7 @@
       onpointercancel={onPointerCancel}
     >
       <div
-        class="relative min-h-90 overflow-hidden md:min-h-[32vw] md:max-h-140"
+        class="relative min-h-90 overflow-hidden md:min-h-[32vw] md:min-h-[535px]"
       >
         <div
           class="absolute inset-0 transition-transform duration-300 ease-out"

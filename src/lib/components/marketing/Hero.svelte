@@ -61,9 +61,7 @@
 </script>
 
 <section class="relative w-full overflow-x-hidden pb-16 md:pb-14">
-  <div
-    class="relative flex min-h-[420px] w-full bg-neutral-950 md:min-h-[500px]"
-  >
+  <div class="relative flex min-h-[420px] w-full bg-neutral-950 h-[535px]">
     <div class="absolute inset-0 z-0" data-hero-banner>
       <BannerFrame
         {bannerKey}
