@@ -2,7 +2,6 @@
   import { afterNavigate, onNavigate } from '$app/navigation';
   import { onMount } from 'svelte';
   import './layout.css';
-  import favicon from '$lib/assets/favicon.svg';
   import Header from '$lib/components/layout/Header.svelte';
   import Footer from '$lib/components/layout/Footer.svelte';
   import TrackingManager from '$lib/components/system/TrackingManager.svelte';
@@ -47,7 +46,12 @@
 </script>
 
 <svelte:head>
-  <link rel="icon" href={favicon} />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="64x64"
+    href="https://www.nissan.pt/etc/designs/nissan_next_v4/26.03.32.NISSAN-4/common-assets/img/favicon/favicon_64x64.png"
+  />
   <meta name="description" content={data.site.description} />
 </svelte:head>
 

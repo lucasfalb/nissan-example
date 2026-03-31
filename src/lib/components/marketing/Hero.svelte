@@ -75,7 +75,7 @@
     </div>
 
     <div
-      class="relative z-10 mx-auto mb-0 mt-auto h-full w-[min(95.9%,1170px)] px-1 pb-24 pt-12 md:mb-8 md:px-0 md:py-24"
+      class="relative z-10 mx-auto mb-0 mt-auto h-full w-[min(95.9%,1170px)] px-1 pb-24 pt-12 md:mb-8 md:px-0 md:py-26"
     >
       <div class="flex h-full flex-col justify-end pb-3 sm:pb-0">
         <p

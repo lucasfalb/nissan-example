@@ -12,8 +12,22 @@
 
   let { slides } = $props<{ slides: HomeSlide[] }>();
 
+  function buildLayerStyle(bannerUrl: string) {
+    return `background-image:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.08)), url("${bannerUrl}");`;
+  }
+
+  function getInitialLayerStyle(slides: HomeSlide[]) {
+    const initialSlide = slides.find((slide) => Boolean(getBannerUrl(slide.bannerKey)));
+    if (!initialSlide) {
+      return "";
+    }
+
+    return buildLayerStyle(getBannerUrl(initialSlide.bannerKey));
+  }
+
   let currentIndex = $state(0);
   let activeLayer: "a" | "b" = $state("a");
+  const initialLayerStyle = $derived(getInitialLayerStyle(slides));
   let layerAStyle = $state("");
   let layerBStyle = $state("");
   let intervalId: number | undefined;
@@ -29,10 +43,6 @@
     slides.filter((slide: HomeSlide) => Boolean(getBannerUrl(slide.bannerKey))),
   );
   const currentSlide = $derived(activeSlides[currentIndex]);
-
-  function buildLayerStyle(bannerUrl: string) {
-    return `background-image:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.08)), url("${bannerUrl}");`;
-  }
 
   function applyCurrentSlide(index: number, force = false) {
     const slide = activeSlides[index];
@@ -222,7 +232,7 @@
         >
           <div
             class={`absolute inset-0 bg-cover bg-center transition-[opacity,transform] duration-700 ease-out ${activeLayer === "a" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
-            style={layerAStyle}
+            style={layerAStyle || initialLayerStyle}
           ></div>
           <div
             class={`absolute inset-0 bg-cover bg-center transition-[opacity,transform] duration-700 ease-out ${activeLayer === "b" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
