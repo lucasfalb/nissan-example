@@ -244,7 +244,7 @@
 
     feedback = {
       type: "success",
-      text: "Pedido enviado com sucesso. Um consultor podera acompanhar o seu interesse a partir deste pedido.",
+      text: "Pedido enviado com sucesso. A nossa equipa irá contactá-lo em breve.",
     };
     resetForm();
     isSubmitting = false;

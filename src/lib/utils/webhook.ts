@@ -1,3 +1,5 @@
+import { PUBLIC_WEBHOOK_URL } from '$env/static/public';
+
 type LeadPayload = {
   page_type: string;
   event_type: string;
@@ -12,7 +14,7 @@ type LeadPayload = {
 };
 
 export async function sendToWebhook(payload: LeadPayload) {
-  const webhookUrl = import.meta.env.PUBLIC_WEBHOOK_URL;
+  const webhookUrl = PUBLIC_WEBHOOK_URL;
 
   if (!webhookUrl) {
     return { success: false, error: 'Webhook não configurado.' };

@@ -1,7 +1,7 @@
-import { env } from "$env/dynamic/public";
+import { PUBLIC_SITE_URL } from '$env/static/public';
 
-const PRERENDER_ORIGIN = "http://sveltekit-prerender";
-const LOCAL_FALLBACK_ORIGIN = "http://localhost:5173";
+const PRERENDER_ORIGIN = 'http://sveltekit-prerender';
+const LOCAL_FALLBACK_ORIGIN = 'http://localhost:5173';
 
 function normalizeOrigin(value: string | undefined): string | undefined {
   const trimmed = value?.trim();
@@ -13,7 +13,7 @@ function normalizeOrigin(value: string | undefined): string | undefined {
 }
 
 export function resolveSiteUrl(requestOrigin?: string): string {
-  const configuredOrigin = normalizeOrigin(env.PUBLIC_SITE_URL);
+  const configuredOrigin = normalizeOrigin(PUBLIC_SITE_URL);
   if (configuredOrigin) {
     return configuredOrigin;
   }

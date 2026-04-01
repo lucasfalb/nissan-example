@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { PUBLIC_GTM_ID } from '$env/static/public';
   import { afterNavigate } from '$app/navigation';
   import { onMount } from 'svelte';
   import { initGoogleTagManager } from '$lib/utils/gtm';
@@ -10,7 +11,7 @@
   }
 
   onMount(() => {
-    initGoogleTagManager(import.meta.env.PUBLIC_GTM_ID);
+    initGoogleTagManager(PUBLIC_GTM_ID);
     trackPageView(window.location.pathname);
 
     return afterNavigate(({ to }) => {
