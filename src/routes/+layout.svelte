@@ -3,7 +3,6 @@
   import './layout.css';
   import Header from '$components/Header.svelte';
   import Footer from '$components/Footer.svelte';
-  import ExternalScripts from '$components/ExternalScripts.svelte';
 
   let { children, data } = $props();
 
@@ -31,7 +30,6 @@
 </svelte:head>
 
 <div class="min-h-screen overflow-x-hidden bg-white text-neutral-950">
-  <ExternalScripts />
   <div class="flex min-h-screen flex-col">
     <Header />
     <div class="page-wrapper flex-1">
