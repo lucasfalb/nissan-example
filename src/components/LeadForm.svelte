@@ -177,25 +177,16 @@
     feedback = null;
 
     if (!validateForm()) {
-      const firstError = Object.entries(errors)[0];
+      const errorFields = Object.keys(errors);
 
       pushEvent(
         "form_submit_attempt",
         getFormTrackingPayload({
           interest_type: isTypeA ? null : interestType || null,
           version: isTypeA ? null : version || null,
-          field: firstError?.[0] ?? null,
+          fields: errorFields,
         }),
       );
-
-      if (firstError) {
-        pushEvent(
-          "form_error",
-          getFormTrackingPayload({
-            field: firstError[0],
-          }),
-        );
-      }
 
       return;
     }
@@ -227,6 +218,13 @@
     });
 
     if (!result.success) {
+      pushEvent(
+        "form_error",
+        getFormTrackingPayload({
+          error_message: result.error,
+        }),
+      );
+
       pushEvent(
         "form_submit_failure",
         getFormTrackingPayload({
