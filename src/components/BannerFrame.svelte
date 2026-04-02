@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getBannerUrl, getFallbackBannerUrl } from '$lib/model-banners';
+  import { getBannerUrl } from '$lib/model-banners';
   import type { BannerKey } from '$lib/types';
 
   let {
@@ -25,21 +25,6 @@
   }>();
 
   const imageUrl = $derived(getBannerUrl(bannerKey));
-  const fallbackImageUrl = $derived(getFallbackBannerUrl(bannerKey));
-
-  function handleImageError(event: Event) {
-    const image = event.currentTarget;
-    if (!(image instanceof HTMLImageElement)) {
-      return;
-    }
-
-    if (image.dataset.fallbackApplied === 'true' || !fallbackImageUrl) {
-      return;
-    }
-
-    image.dataset.fallbackApplied = 'true';
-    image.src = fallbackImageUrl;
-  }
 </script>
 
 {#if imageUrl}
@@ -56,7 +41,6 @@
       width="1600"
       height="900"
       sizes={sizes}
-      onerror={handleImageError}
       class={`absolute h-full w-full object-cover ${imageClassName}`.trim()}
     />
   </div>

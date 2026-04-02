@@ -1,46 +1,13 @@
 {
-  "POPUP": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/happiniss-days/bc50cf1f-hero-happiniss-03-2026-v2_11hc0jh000000000000000.jpg",
-    "local": "/banners/popup.jpg"
-  },
-  "HAPPINISS_DAYS": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/happiniss-days/bc50cf1f-hero-happiniss-03-2026-v2_11hc0jh000000000000000.jpg",
-    "local": "/banners/happiniss-days.jpg"
-  },
-  "NISSAN_JUKE_STANDALONE": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/nissan-juke/96e7b30a-grupo-9326-1-2x-1_11hc0jh000000000000000.jpg",
-    "local": "/banners/nissan-juke-standalone.jpg"
-  },
-  "NISSAN_LEAF": {
-    "remote": "https://www-europe.nissan-cdn.net/content/dam/Nissan/nissan_europe/vehicles/Leaf-unveil/LHD/SCULPTED%201%20-%20LHD.png",
-    "local": "/banners/nissan-leaf.png"
-  },
-  "NISSAN_ARIYA": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/nissan-ariya/53ae86e6-grupo-9332_11je0k81hc0k8010000028.png",
-    "local": "/banners/nissan-ariya.png"
-  },
-  "NISSAN_QASHQAI": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/nissan-qashqai/a17fd374-grupo-de-mascara-93-1_11nn0in1hc0in035000000.jpg",
-    "local": "/banners/nissan-qashqai.jpg"
-  },
-  "NISSAN_X_TRAIL": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/nissan-x-trail/d153675e-grupo-9299_11jp0kc1hc0kc016000028.png",
-    "local": "/banners/nissan-x-trail.png"
-  },
-  "NOVO_NISSAN_JUKE": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/nissan-juke/96e7b30a-grupo-9326-1-2x-1_11hc0jh000000000000000.jpg",
-    "local": "/banners/novo-nissan-juke.jpg"
-  },
-  "NOVO_MICRA": {
-    "remote": "https://campanhas.nissan.pt/889620a-F275-Nissan_Micra_lifestyle_LHD_LOW_001.jpg",
-    "local": "/banners/novo-micra.jpg"
-  },
-  "USADOS_JUKE": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/nissan-juke/96e7b30a-grupo-9326-1-2x-1_11hc0jh000000000000000.jpg",
-    "local": "/banners/usados-juke.jpg"
-  },
-  "USADOS_QASHQAI": {
-    "remote": "https://d9hhrg4mnvzow.cloudfront.net/ofertasespeciais.nissan.pt/nissan-qashqai/a17fd374-grupo-de-mascara-93-1_11nn0in1hc0in035000000.jpg",
-    "local": "/banners/usados-qashqai.jpg"
-  }
+  "POPUP": "/banners/popup.jpg",
+  "HAPPINISS_DAYS": "/banners/happiniss-days.jpg",
+  "NISSAN_JUKE_STANDALONE": "/banners/nissan-juke-standalone.jpg",
+  "NISSAN_LEAF": "/banners/nissan-leaf.png",
+  "NISSAN_ARIYA": "/banners/nissan-ariya.png",
+  "NISSAN_QASHQAI": "/banners/nissan-qashqai.jpg",
+  "NISSAN_X_TRAIL": "/banners/nissan-x-trail.png",
+  "NOVO_NISSAN_JUKE": "/banners/novo-nissan-juke.jpg",
+  "NOVO_MICRA": "/banners/novo-micra.jpg",
+  "USADOS_JUKE": "/banners/usados-juke.jpg",
+  "USADOS_QASHQAI": "/banners/usados-qashqai.jpg"
 }

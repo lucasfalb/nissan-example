@@ -2,7 +2,7 @@
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  import { getBannerUrl, getFallbackBannerUrlFromUrl } from "$lib/model-banners";
+  import { getBannerUrl } from "$lib/model-banners";
   import { setPendingNavigationContext } from "$lib/transitions";
   import type { HomeSlide } from "$lib/types";
 
@@ -184,28 +184,6 @@
     resetTimer();
   }
 
-  function handleSlideImageError(event: Event) {
-    const image = event.currentTarget;
-    if (!(image instanceof HTMLImageElement)) {
-      return;
-    }
-
-    if (image.dataset.fallbackApplied === "true") {
-      return;
-    }
-
-    const fallbackUrl = getFallbackBannerUrlFromUrl(
-      image.getAttribute("src") || image.currentSrc || image.src,
-    );
-
-    if (!fallbackUrl) {
-      return;
-    }
-
-    image.dataset.fallbackApplied = "true";
-    image.src = fallbackUrl;
-  }
-
   onMount(() => {
     if (activeSlides.length === 0) {
       return;
@@ -258,7 +236,6 @@
             width="1600"
             height="900"
             sizes="100vw"
-            onerror={handleSlideImageError}
             class={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out ${activeLayer === "a" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
           />
           <img
@@ -271,7 +248,6 @@
             width="1600"
             height="900"
             sizes="100vw"
-            onerror={handleSlideImageError}
             class={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out ${activeLayer === "b" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
           />
         </div>
