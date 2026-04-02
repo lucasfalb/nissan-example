@@ -1,9 +1,8 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { onMount } from "svelte";
-  import { navigationGroups } from "$lib/content/navigation";
-  import { getRouteMeta } from "$lib/utils/route-meta";
-  import { pushEvent } from "$lib/utils/tracking";
+  import { navigationGroups } from "$lib/navigation";
+  import { pushLinkEvent } from "$lib/tracking";
 
   let mobileOpen = $state(false);
   let openDesktopGroup = $state<string | null>(null);
@@ -27,14 +26,11 @@
   function trackHeaderClick(
     destinationPath: string,
     sourceLabel: string,
-    navGroup: string,
   ) {
-    pushEvent("header_click", {
-      ...getRouteMeta(page.url.pathname),
-      source_component: "header",
-      source_label: sourceLabel,
-      nav_group: navGroup,
-      destination_path: destinationPath,
+    pushLinkEvent({
+      page: page.url.pathname,
+      destination: destinationPath,
+      title: sourceLabel,
     });
   }
 
@@ -81,7 +77,7 @@
       href="/"
       class="inline-flex items-center"
       aria-label="Nissan - Página inicial"
-      onclick={() => trackHeaderClick("/", "Logo Nissan", "brand")}
+      onclick={() => trackHeaderClick("/", "Logo Nissan")}
     >
       <img src="/assets/nissan.svg" alt="Nissan" class="h-6 w-auto sm:h-8" />
     </a>
@@ -94,7 +90,7 @@
         {#if "path" in group}
           <a
             href={group.path}
-            onclick={() => trackHeaderClick(group.path, group.label, "primary")}
+            onclick={() => trackHeaderClick(group.path, group.label)}
             class={`inline-flex min-h-12 items-center gap-2 px-3 text-[13px] font-medium uppercase tracking-[0.06em] text-neutral-700 transition hover:text-neutral-950 ${isActive(group.path) ? "bg-neutral-100 text-neutral-950" : ""}`}
           >
             {group.label}
@@ -134,7 +130,7 @@
                 <a
                   href={item.path}
                   onclick={() => {
-                    trackHeaderClick(item.path, item.label, group.label);
+                    trackHeaderClick(item.path, item.label);
                     closeAllMenus();
                   }}
                   class={`block px-3 py-2 text-[13px] font-normal text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-950 ${page.url.pathname === item.path ? "bg-neutral-100 text-neutral-950" : ""}`}
@@ -199,7 +195,7 @@
             <a
               href={group.path}
               onclick={() => {
-                trackHeaderClick(group.path, group.label, "primary");
+                trackHeaderClick(group.path, group.label);
                 closeAllMenus();
               }}
               class={`flex min-h-14 items-center justify-between rounded-[22px] border px-5 py-4 text-[1.6rem] leading-[1.2] font-medium transition-[border-color,background-color,color,transform] duration-200 ${isActive(group.path) ? "border-neutral-950 bg-neutral-950 text-white" : "border-neutral-200 bg-white text-neutral-950 hover:-translate-y-[1px] hover:border-neutral-300"}`}
@@ -269,7 +265,7 @@
                   <a
                     href={item.path}
                     onclick={() => {
-                      trackHeaderClick(item.path, item.label, group.label);
+                      trackHeaderClick(item.path, item.label);
                       closeAllMenus();
                     }}
                     class={`flex min-h-12 items-center rounded-[16px] px-4 py-3 text-[1.45rem] leading-[1.35] font-normal transition-[background-color,color,transform] duration-200 ${page.url.pathname === item.path ? "bg-neutral-950 text-white" : "text-neutral-600 hover:translate-x-[2px] hover:bg-neutral-100 hover:text-neutral-950"}`}

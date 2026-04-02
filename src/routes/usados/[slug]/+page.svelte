@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DetailLanding from '$lib/components/pages/DetailLanding.svelte';
+  import DetailLanding from '$components/DetailLanding.svelte';
 
   let { data } = $props();
 </script>

@@ -129,52 +129,6 @@ img {
   contain: layout paint;
 }
 
-.page-wrapper [data-hero-stage],
-.page-wrapper [data-hero-title],
-.page-wrapper [data-form-stage] {
-  opacity: 0;
-  transform: translateY(0px);
-  will-change: transform, opacity;
-}
-
-.page-wrapper.is-ready [data-hero-title],
-.page-wrapper.is-ready [data-hero-stage],
-.page-wrapper.is-ready [data-form-stage] {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 250ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.page-wrapper [data-hero-title] {
-  transition-delay: 100ms;
-}
-
-.page-wrapper [data-hero-stage="eyebrow"] {
-  transition-delay: 200ms;
-}
-
-.page-wrapper [data-hero-stage="subtitle"] {
-  transition-delay: 300ms;
-}
-
-.page-wrapper [data-hero-stage="ctas"] {
-  transition-delay: 400ms;
-}
-
-.page-wrapper [data-hero-stage="highlights"] {
-  transition-delay: 500ms;
-}
-
-.page-wrapper [data-form-stage="panel"] {
-  transition-delay: 560ms;
-}
-
-.page-wrapper [data-form-stage="card"] {
-  transition-delay: 680ms;
-}
-
 .featured-card__visual img {
   transform: scale(1);
   transition:

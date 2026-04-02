@@ -4,8 +4,8 @@
 import { statSync } from 'node:fs';
 // @ts-ignore
 import { join } from 'node:path';
-import { pageDefinitions } from '$lib/content/page-definitions';
-import { toAbsoluteUrl } from '$lib/config/site';
+import { toAbsoluteUrl } from '$lib/meta';
+import { pageDefinitions } from '$lib/page-definitions';
 
 export const prerender = true;
 
@@ -44,7 +44,7 @@ export function GET() {
       lastmod: getLastModified(
         'src/routes/+page.ts',
         'src/routes/+page.svelte',
-        'src/lib/content/model-banners.ts',
+        'src/lib/model-banners.ts',
       )
     },
     {
@@ -53,14 +53,14 @@ export function GET() {
       lastmod: getLastModified(
         'src/routes/modelos/+page.ts',
         'src/routes/modelos/+page.svelte',
-        'src/lib/content/page-definitions.ts',
+        'src/lib/page-definitions.ts',
       )
     },
     ...Object.values(pageDefinitions).map((page) => ({
       path: page.seo.canonicalPath,
       lastmod: getLastModified(
-        'src/lib/content/page-definitions.ts',
-        'src/lib/components/pages/DetailLanding.svelte',
+        'src/lib/page-definitions.ts',
+        'src/components/DetailLanding.svelte',
       ),
       priority:
         page.kind === 'campaign' || page.kind === 'standalone'

@@ -1,4 +1,4 @@
-import type { PageDefinition } from '$lib/types/content';
+import type { PageDefinition } from '$lib/types';
 
 const commonCtas = {
   primary: 'Agendar Test Drive',

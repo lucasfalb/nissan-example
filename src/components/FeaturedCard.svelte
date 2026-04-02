@@ -1,13 +1,12 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import type { BannerKey } from "$lib/types/content";
-  import BannerFrame from "$lib/components/marketing/BannerFrame.svelte";
-  import { getRouteMeta } from "$lib/utils/route-meta";
-  import { pushEvent } from "$lib/utils/tracking";
+  import BannerFrame from "$components/BannerFrame.svelte";
+  import type { BannerKey } from "$lib/types";
+  import { pushLinkEvent } from "$lib/tracking";
   import {
     setPendingNavigationContext,
     toTransitionToken,
-  } from "$lib/utils/view-transition-context";
+  } from "$lib/transitions";
 
   let { card } = $props<{
     card: {
@@ -46,15 +45,11 @@
       transitionKey: card.transitionKey ?? card.path
     });
 
-    pushEvent("model_card_click", {
-      ...getRouteMeta(page.url.pathname),
-      destination_path: card.path,
-      source_component: "model_card",
-      card_title: card.title,
-      card_category: card.category ?? "model",
-      card_section: card.section ?? "listing",
-      card_position: card.position ?? null,
-      banner_key: card.bannerKey,
+    pushLinkEvent({
+      page: page.url.pathname,
+      destination: card.path,
+      title: card.title,
+      position: card.position ?? null,
     });
   }
 </script>
@@ -64,6 +59,7 @@
     <BannerFrame
       bannerKey={card.bannerKey}
       title={card.title}
+      sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
       className="min-h-[180px] sm:min-h-[260px]"
       fallbackLabel="Cole o URL do banner deste modelo"
     />

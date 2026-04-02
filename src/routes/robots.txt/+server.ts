@@ -1,4 +1,4 @@
-import { toAbsoluteUrl } from '$lib/config/site';
+import { toAbsoluteUrl } from '$lib/meta';
 
 export const prerender = true;
 

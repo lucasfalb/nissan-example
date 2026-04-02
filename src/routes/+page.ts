@@ -1,7 +1,7 @@
 import type { PageLoad } from './$types';
-import { pageDefinitions } from '$lib/content/page-definitions';
-import { HOME_SLIDES } from '$lib/content/model-banners';
-import { buildSeoMeta } from '$lib/utils/seo';
+import { buildSeoMeta } from '$lib/meta';
+import { HOME_SLIDES } from '$lib/model-banners';
+import { pageDefinitions } from '$lib/page-definitions';
 
 export const prerender = true;
 

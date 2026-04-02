@@ -1,18 +1,17 @@
 <script lang="ts">
-  import HomeSlideshow from "$lib/components/marketing/HomeSlideshow.svelte";
-  import SectionHeader from "$lib/components/marketing/SectionHeader.svelte";
-  import FeaturedCard from "$lib/components/marketing/FeaturedCard.svelte";
-  import { getRouteMeta } from '$lib/utils/route-meta';
-  import { pushEvent } from '$lib/utils/tracking';
+  import HomeSlideshow from "$components/HomeSlideshow.svelte";
+  import SectionHeader from "$components/SectionHeader.svelte";
+  import FeaturedCard from "$components/FeaturedCard.svelte";
+  import { getBannerUrl } from "$lib/model-banners";
+  import { pushLinkEvent } from '$lib/tracking';
 
   let { data } = $props();
 
-  function trackHomeCtaClick(sourceLabel: string, destinationPath: string, sourceComponent: string) {
-    pushEvent('cta_click', {
-      ...getRouteMeta('/'),
-      source_component: sourceComponent,
-      source_label: sourceLabel,
-      destination_path: destinationPath
+  function trackHomeCtaClick(sourceLabel: string, destinationPath: string) {
+    pushLinkEvent({
+      page: '/',
+      destination: destinationPath,
+      title: sourceLabel
     });
   }
 </script>
@@ -21,6 +20,7 @@
   <title>{data.seo.title}</title>
   <meta name="description" content={data.seo.description} />
   <link rel="canonical" href={data.seo.canonicalUrl} />
+  <link rel="preload" as="image" href={getBannerUrl(data.slides[0].bannerKey)} />
 </svelte:head>
 
 <main class="w-screen overflow-x-hidden">
@@ -57,14 +57,14 @@
         <div class="flex flex-wrap justify-center gap-4">
           <a
             href="/modelos/"
-            onclick={() => trackHomeCtaClick('Explore a Gama', '/modelos/', 'home_marketing')}
+            onclick={() => trackHomeCtaClick('Explore a Gama', '/modelos/')}
             class="inline-flex min-h-12 items-center justify-center bg-[#c3002f] px-8 text-[14px] font-medium uppercase tracking-[0.05rem] text-white! transition hover:bg-[#920023]"
           >
             Explore a Gama
           </a>
           <a
             href="/campanhas/popup/"
-            onclick={() => trackHomeCtaClick('Ver Ofertas', '/campanhas/popup/', 'home_marketing')}
+            onclick={() => trackHomeCtaClick('Ver Ofertas', '/campanhas/popup/')}
             class="inline-flex min-h-12 items-center justify-center border border-neutral-300 bg-white px-8 py-4 text-[14px] font-medium uppercase tracking-[0.05rem] text-neutral-900 transition hover:border-neutral-700"
           >
             Ver Ofertas
@@ -98,7 +98,7 @@
         <a
           class="border border-neutral-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
           href="/campanhas/happiniss-days/"
-          onclick={() => trackHomeCtaClick('Ofertas em destaque', '/campanhas/happiniss-days/', 'home_entry_card')}
+          onclick={() => trackHomeCtaClick('Ofertas em destaque', '/campanhas/happiniss-days/')}
         >
           <span
             class="mb-4 inline-block text-[11px] uppercase tracking-[0.09rem] text-[#c3002f]"
@@ -115,7 +115,7 @@
         <a
           class="border border-neutral-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
           href="/modelos/"
-          onclick={() => trackHomeCtaClick('Descubra a gama Nissan', '/modelos/', 'home_entry_card')}
+          onclick={() => trackHomeCtaClick('Descubra a gama Nissan', '/modelos/')}
         >
           <span
             class="mb-4 inline-block text-[11px] uppercase tracking-[0.09rem] text-[#c3002f]"
@@ -132,7 +132,7 @@
         <a
           class="border border-neutral-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
           href="/usados/qashqai/"
-          onclick={() => trackHomeCtaClick('Oportunidades Nissan', '/usados/qashqai/', 'home_entry_card')}
+          onclick={() => trackHomeCtaClick('Oportunidades Nissan', '/usados/qashqai/')}
         >
           <span
             class="mb-4 inline-block text-[11px] uppercase tracking-[0.09rem] text-[#c3002f]"

@@ -1,27 +1,11 @@
 <script lang="ts">
-  import { afterNavigate, onNavigate } from '$app/navigation';
-  import { onMount } from 'svelte';
+  import { onNavigate } from '$app/navigation';
   import './layout.css';
-  import Header from '$lib/components/layout/Header.svelte';
-  import Footer from '$lib/components/layout/Footer.svelte';
-  import TrackingManager from '$lib/components/system/TrackingManager.svelte';
+  import Header from '$components/Header.svelte';
+  import Footer from '$components/Footer.svelte';
+  import ExternalScripts from '$components/ExternalScripts.svelte';
 
   let { children, data } = $props();
-  let pageWrapperElement: HTMLDivElement | undefined;
-
-  function activatePageEntrance() {
-    if (!pageWrapperElement) {
-      return;
-    }
-
-    pageWrapperElement.classList.remove('is-ready');
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        pageWrapperElement?.classList.add('is-ready');
-      });
-    });
-  }
 
   onNavigate((navigation) => {
     if (typeof document === 'undefined' || typeof document.startViewTransition !== 'function') {
@@ -35,31 +19,25 @@
       });
     });
   });
-
-  onMount(() => {
-    activatePageEntrance();
-  });
-
-  afterNavigate(() => {
-    activatePageEntrance();
-  });
 </script>
 
 <svelte:head>
+  <link rel="preconnect" href="https://d9hhrg4mnvzow.cloudfront.net" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://www-europe.nissan-cdn.net" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://campanhas.nissan.pt" crossorigin="anonymous" />
   <link
     rel="icon"
-    type="image/png"
-    sizes="64x64"
-    href="https://www.nissan.pt/etc/designs/nissan_next_v4/26.03.32.NISSAN-4/common-assets/img/favicon/favicon_64x64.png"
+    type="image/svg+xml"
+    href="/assets/nissan.svg"
   />
   <meta name="description" content={data.site.description} />
 </svelte:head>
 
 <div class="min-h-screen overflow-x-hidden bg-white text-neutral-950">
-  <TrackingManager />
+  <ExternalScripts />
   <div class="flex min-h-screen flex-col">
     <Header />
-    <div bind:this={pageWrapperElement} class="page-wrapper flex-1">
+    <div class="page-wrapper flex-1">
       {@render children()}
     </div>
     <Footer />

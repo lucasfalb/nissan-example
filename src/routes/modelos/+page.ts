@@ -1,6 +1,6 @@
 import type { PageLoad } from './$types';
-import { modelSlugs, pageDefinitions } from '$lib/content/page-definitions';
-import { buildSeoMeta } from '$lib/utils/seo';
+import { buildSeoMeta } from '$lib/meta';
+import { modelSlugs, pageDefinitions } from '$lib/page-definitions';
 
 export const prerender = true;
 

@@ -1,14 +1,12 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { getRouteMeta } from "$lib/utils/route-meta";
-  import { pushEvent } from "$lib/utils/tracking";
+  import { pushLinkEvent } from "$lib/tracking";
 
   function trackFooterClick(destinationPath: string, sourceLabel: string) {
-    pushEvent("footer_click", {
-      ...getRouteMeta(page.url.pathname),
-      source_component: "footer",
-      source_label: sourceLabel,
-      destination_path: destinationPath,
+    pushLinkEvent({
+      page: page.url.pathname,
+      destination: destinationPath,
+      title: sourceLabel,
     });
   }
 </script>

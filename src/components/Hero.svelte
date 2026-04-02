@@ -1,10 +1,9 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { onMount } from "svelte";
-  import type { BannerKey } from "$lib/types/content";
-  import BannerFrame from "$lib/components/marketing/BannerFrame.svelte";
-  import { getRouteMeta } from "$lib/utils/route-meta";
-  import { pushEvent } from "$lib/utils/tracking";
+  import BannerFrame from "$components/BannerFrame.svelte";
+  import type { BannerKey } from "$lib/types";
+  import { pushLinkEvent } from "$lib/tracking";
 
   let {
     title,
@@ -25,12 +24,10 @@
   let heroTitleElement: HTMLHeadingElement | undefined;
 
   function trackHeroCtaClick(sourceLabel: string, ctaType: string) {
-    pushEvent("cta_click", {
-      ...getRouteMeta(page.url.pathname),
-      source_component: "hero",
-      source_label: sourceLabel,
-      cta_type: ctaType,
-      destination_path: "#lead-form",
+    pushLinkEvent({
+      page: page.url.pathname,
+      destination: "#lead-form",
+      title: sourceLabel,
     });
 
     if (typeof window !== "undefined") {
@@ -66,6 +63,9 @@
       <BannerFrame
         {bannerKey}
         {title}
+        surfaceClassName="bg-neutral-950"
+        priority={true}
+        sizes="100vw"
         className="h-full w-full object-cover border-0"
         fallbackLabel="Imagem não configurada"
       />

@@ -4,11 +4,11 @@
   import {
     interestTypeOptions,
     modelInterestOptions,
-  } from "$lib/content/form-options";
-  import type { PageDefinition } from "$lib/types/content";
-  import { getPageModel, getPageType } from "$lib/utils/page-meta";
-  import { pushEvent } from "$lib/utils/tracking";
-  import { sendToWebhook } from "$lib/utils/webhook";
+  } from "$lib/form-options";
+  import { getPageModel, getPageType } from "$lib/meta";
+  import { pushEvent } from "$lib/tracking";
+  import { sendToWebhook } from "$lib/webhook";
+  import type { PageDefinition } from "$lib/types";
 
   const emailPattern =
     /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/i;
@@ -38,6 +38,15 @@
   );
   const pageType = $derived(getPageType(page));
   const pageModel = $derived(getPageModel(page));
+
+  function getFormTrackingPayload(data: Record<string, unknown> = {}) {
+    return {
+      page: page.seo.canonicalPath,
+      form: formId,
+      page_model: pageModel,
+      ...data,
+    };
+  }
 
   function getValue(fieldName: string) {
     switch (fieldName) {
@@ -77,12 +86,12 @@
     }
 
     trackedFields.add(fieldName);
-    pushEvent("form_field_interaction", {
-      form_id: formId,
-      field_name: fieldName,
-      page_model: pageModel,
-      page_path: page.seo.canonicalPath,
-    });
+    pushEvent(
+      "form_field_interaction",
+      getFormTrackingPayload({
+        field: fieldName,
+      }),
+    );
   }
 
   function handleStart() {
@@ -94,11 +103,7 @@
       formElement.dataset.started = "true";
     }
 
-    pushEvent("form_start", {
-      form_id: formId,
-      page_model: pageModel,
-      page_path: page.seo.canonicalPath,
-    });
+    pushEvent("form_start", getFormTrackingPayload());
   }
 
   function handleFieldInput(fieldName: string) {
@@ -147,16 +152,6 @@
 
     errors = nextErrors;
 
-    const firstError = Object.entries(nextErrors)[0];
-    if (firstError) {
-      pushEvent("form_error", {
-        form_id: formId,
-        page_model: pageModel,
-        page_path: page.seo.canonicalPath,
-        error_field: firstError[0],
-      });
-    }
-
     return Object.keys(nextErrors).length === 0;
   }
 
@@ -181,27 +176,40 @@
     event.preventDefault();
     feedback = null;
 
-    pushEvent("form_submit_attempt", {
-      form_id: formId,
-      page_model: pageModel,
-      page_path: page.seo.canonicalPath,
-      interest_type: isTypeA ? null : interestType || null,
-      version: isTypeA ? null : version || null,
-    });
-
     if (!validateForm()) {
+      const firstError = Object.entries(errors)[0];
+
+      pushEvent(
+        "form_submit_attempt",
+        getFormTrackingPayload({
+          interest_type: isTypeA ? null : interestType || null,
+          version: isTypeA ? null : version || null,
+          field: firstError?.[0] ?? null,
+        }),
+      );
+
+      if (firstError) {
+        pushEvent(
+          "form_error",
+          getFormTrackingPayload({
+            field: firstError[0],
+          }),
+        );
+      }
+
       return;
     }
 
-    pushEvent("lead_submit", {
-      form_id: formId,
-      page_model: pageModel,
-      form_model: isTypeA ? modelInterest : pageModel,
-      form_version: isTypeA ? null : version || null,
-      form_model_interest: isTypeA ? modelInterest : null,
-      form_interest_type: isTypeA ? null : interestType || null,
-      form_has_message: Boolean(message.trim()),
-    });
+    pushEvent(
+      "form_submit",
+      getFormTrackingPayload({
+        model: isTypeA ? modelInterest : pageModel,
+        version: isTypeA ? null : version || null,
+        model_interest: isTypeA ? modelInterest : null,
+        interest_type: isTypeA ? null : interestType || null,
+        has_message: Boolean(message.trim()),
+      }),
+    );
 
     isSubmitting = true;
 
@@ -219,12 +227,12 @@
     });
 
     if (!result.success) {
-      pushEvent("form_submit_failure", {
-        form_id: formId,
-        page_model: pageModel,
-        page_path: page.seo.canonicalPath,
-        error_message: result.error,
-      });
+      pushEvent(
+        "form_submit_failure",
+        getFormTrackingPayload({
+          error_message: result.error,
+        }),
+      );
 
       feedback = {
         type: "error",
@@ -234,13 +242,13 @@
       return;
     }
 
-    pushEvent("form_submit_success", {
-      form_id: formId,
-      page_model: pageModel,
-      page_path: page.seo.canonicalPath,
-      interest_type: isTypeA ? null : interestType || null,
-      version: isTypeA ? null : version || null,
-    });
+    pushEvent(
+      "form_submit_success",
+      getFormTrackingPayload({
+        interest_type: isTypeA ? null : interestType || null,
+        version: isTypeA ? null : version || null,
+      }),
+    );
 
     feedback = {
       type: "success",
@@ -279,12 +287,7 @@
     window.addEventListener("app:lead-interest", onLeadInterest);
 
     if (!("IntersectionObserver" in window)) {
-      pushEvent("form_view", {
-        form_id: formId,
-        page_path: page.seo.canonicalPath,
-        page_type: pageType,
-        page_model: pageModel,
-      });
+      pushEvent("form_view", getFormTrackingPayload());
       return () => {
         window.removeEventListener("app:lead-interest", onLeadInterest);
       };
@@ -299,12 +302,7 @@
         }
 
         hasTrackedView = true;
-        pushEvent("form_view", {
-          form_id: formId,
-          page_path: page.seo.canonicalPath,
-          page_type: pageType,
-          page_model: pageModel,
-        });
+        pushEvent("form_view", getFormTrackingPayload());
         observer.disconnect();
       },
       { threshold: 0.35 },

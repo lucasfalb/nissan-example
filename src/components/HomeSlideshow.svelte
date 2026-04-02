@@ -2,9 +2,9 @@
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  import { getBannerUrl } from "$lib/content/model-banners";
-  import type { HomeSlide } from "$lib/types/content";
-  import { setPendingNavigationContext } from "$lib/utils/view-transition-context";
+  import { getBannerUrl, getFallbackBannerUrlFromUrl } from "$lib/model-banners";
+  import { setPendingNavigationContext } from "$lib/transitions";
+  import type { HomeSlide } from "$lib/types";
 
   const DRAG_CLICK_THRESHOLD = 10;
   const slideDuration = 5000;
@@ -12,24 +12,20 @@
 
   let { slides } = $props<{ slides: HomeSlide[] }>();
 
-  function buildLayerStyle(bannerUrl: string) {
-    return `background-image:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.08)), url("${bannerUrl}");`;
-  }
-
-  function getInitialLayerStyle(slides: HomeSlide[]) {
+  function getInitialLayerUrl(slides: HomeSlide[]) {
     const initialSlide = slides.find((slide) => Boolean(getBannerUrl(slide.bannerKey)));
     if (!initialSlide) {
       return "";
     }
 
-    return buildLayerStyle(getBannerUrl(initialSlide.bannerKey));
+    return getBannerUrl(initialSlide.bannerKey);
   }
 
   let currentIndex = $state(0);
   let activeLayer: "a" | "b" = $state("a");
-  const initialLayerStyle = $derived(getInitialLayerStyle(slides));
-  let layerAStyle = $state("");
-  let layerBStyle = $state("");
+  const initialLayerUrl = $derived(getInitialLayerUrl(slides));
+  let layerAUrl = $state("");
+  let layerBUrl = $state("");
   let intervalId: number | undefined;
   let startX = 0;
   let currentX = 0;
@@ -51,15 +47,15 @@
     }
 
     currentIndex = index;
-    const nextStyle = buildLayerStyle(getBannerUrl(slide.bannerKey));
+    const nextUrl = getBannerUrl(slide.bannerKey);
 
     if (force || activeLayer === "b") {
-      layerAStyle = nextStyle;
+      layerAUrl = nextUrl;
       activeLayer = "a";
       return;
     }
 
-    layerBStyle = nextStyle;
+    layerBUrl = nextUrl;
     activeLayer = "b";
   }
 
@@ -188,6 +184,28 @@
     resetTimer();
   }
 
+  function handleSlideImageError(event: Event) {
+    const image = event.currentTarget;
+    if (!(image instanceof HTMLImageElement)) {
+      return;
+    }
+
+    if (image.dataset.fallbackApplied === "true") {
+      return;
+    }
+
+    const fallbackUrl = getFallbackBannerUrlFromUrl(
+      image.getAttribute("src") || image.currentSrc || image.src,
+    );
+
+    if (!fallbackUrl) {
+      return;
+    }
+
+    image.dataset.fallbackApplied = "true";
+    image.src = fallbackUrl;
+  }
+
   onMount(() => {
     if (activeSlides.length === 0) {
       return;
@@ -210,7 +228,7 @@
   aria-label="Destaques Nissan"
 >
   <div
-    class="group relative overflow-hidden border-y border-neutral-200 bg-neutral-100 select-none"
+    class="group relative overflow-hidden border-y border-neutral-200 bg-neutral-950 select-none"
   >
     <a
       bind:this={linkElement}
@@ -225,19 +243,37 @@
       onpointercancel={onPointerCancel}
     >
       <div
-        class="relative min-h-90 overflow-hidden md:min-h-[32vw] md:min-h-[535px]"
+        class="relative min-h-90 overflow-hidden bg-neutral-950 md:min-h-[32vw] md:min-h-[535px]"
       >
         <div
           class="absolute inset-0 transition-transform duration-300 ease-out"
         >
-          <div
-            class={`absolute inset-0 bg-cover bg-center transition-[opacity,transform] duration-700 ease-out ${activeLayer === "a" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
-            style={layerAStyle || initialLayerStyle}
-          ></div>
-          <div
-            class={`absolute inset-0 bg-cover bg-center transition-[opacity,transform] duration-700 ease-out ${activeLayer === "b" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
-            style={layerBStyle}
-          ></div>
+          <img
+            src={layerAUrl || initialLayerUrl}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            fetchpriority={activeLayer === "a" ? "high" : "auto"}
+            decoding="async"
+            width="1600"
+            height="900"
+            sizes="100vw"
+            onerror={handleSlideImageError}
+            class={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out ${activeLayer === "a" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
+          />
+          <img
+            src={layerBUrl}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            fetchpriority={activeLayer === "b" ? "high" : "auto"}
+            decoding="async"
+            width="1600"
+            height="900"
+            sizes="100vw"
+            onerror={handleSlideImageError}
+            class={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out ${activeLayer === "b" ? "z-2 scale-[1.02] opacity-100" : "z-1 scale-105 opacity-0"}`}
+          />
         </div>
         <div
           class="absolute inset-0 bg-linear-to-r from-black/45 via-black/18 to-transparent"

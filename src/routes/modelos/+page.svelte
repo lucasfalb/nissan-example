@@ -1,6 +1,6 @@
 <script lang="ts">
-  import SectionHeader from '$lib/components/marketing/SectionHeader.svelte';
-  import FeaturedCard from '$lib/components/marketing/FeaturedCard.svelte';
+  import SectionHeader from '$components/SectionHeader.svelte';
+  import FeaturedCard from '$components/FeaturedCard.svelte';
 
   let { data } = $props();
 </script>

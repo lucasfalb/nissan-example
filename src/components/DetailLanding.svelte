@@ -1,11 +1,12 @@
 <script lang="ts">
-  import LeadForm from "$lib/components/forms/LeadForm.svelte";
-  import Hero from "$lib/components/marketing/Hero.svelte";
-  import type { PageDefinition } from "$lib/types/content";
+  import Hero from "$components/Hero.svelte";
+  import LeadForm from "$components/LeadForm.svelte";
+  import { getBannerUrl } from "$lib/model-banners";
+  import type { PageDefinition } from "$lib/types";
   import {
     consumePendingNavigationContext,
     normalizeTransitionPath,
-  } from "$lib/utils/view-transition-context";
+  } from "$lib/transitions";
 
   let { page, seo } = $props<{
     page: PageDefinition;
@@ -25,12 +26,14 @@
       ? navigationContext.transitionKey
       : null,
   );
+  const heroBannerUrl = $derived(getBannerUrl(page.bannerKey));
 </script>
 
 <svelte:head>
   <title>{seo.title}</title>
   <meta name="description" content={seo.description} />
   <link rel="canonical" href={seo.canonicalUrl} />
+  <link rel="preload" as="image" href={heroBannerUrl} />
 </svelte:head>
 
 <Hero

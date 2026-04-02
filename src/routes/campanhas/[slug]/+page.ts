@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { EntryGenerator, PageLoad } from './$types';
-import { campaignSlugs, pageDefinitions } from '$lib/content/page-definitions';
-import { buildSeoMeta } from '$lib/utils/seo';
+import { buildSeoMeta } from '$lib/meta';
+import { campaignSlugs, pageDefinitions } from '$lib/page-definitions';
 
 export const prerender = true;
 export const entries: EntryGenerator = () => campaignSlugs.map((slug) => ({ slug }));
