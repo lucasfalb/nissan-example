@@ -37,11 +37,7 @@
           href="/"
           onclick={() => trackFooterClick("/", "Privacidade")}>Privacidade</a
         >
-        <a
-          class="footer-link"
-          href="/"
-          onclick={() => trackFooterClick("/", "Cookies")}>Cookies</a
-        >
+        <span class="footer-link js-rgc-open-cookies-settings">Cookies</span>
         <a
           class="footer-link"
           href="/"
