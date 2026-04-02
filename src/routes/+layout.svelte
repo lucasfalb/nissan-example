@@ -22,9 +22,6 @@
 </script>
 
 <svelte:head>
-  <link rel="preconnect" href="https://d9hhrg4mnvzow.cloudfront.net" crossorigin="anonymous" />
-  <link rel="preconnect" href="https://www-europe.nissan-cdn.net" crossorigin="anonymous" />
-  <link rel="preconnect" href="https://campanhas.nissan.pt" crossorigin="anonymous" />
   <link
     rel="icon"
     type="image/svg+xml"
