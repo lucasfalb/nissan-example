@@ -191,17 +191,6 @@
       return;
     }
 
-    pushEvent(
-      "form_submit",
-      getFormTrackingPayload({
-        model: isTypeA ? modelInterest : pageModel,
-        version: isTypeA ? null : version || null,
-        model_interest: isTypeA ? modelInterest : null,
-        interest_type: isTypeA ? null : interestType || null,
-        has_message: Boolean(message.trim()),
-      }),
-    );
-
     isSubmitting = true;
 
     const result = await sendToWebhook({
@@ -225,13 +214,6 @@
         }),
       );
 
-      pushEvent(
-        "form_submit_failure",
-        getFormTrackingPayload({
-          error_message: result.error,
-        }),
-      );
-
       feedback = {
         type: "error",
         text: "Não foi possível enviar o pedido agora. Tente novamente dentro de instantes.",
@@ -241,9 +223,12 @@
     }
 
     pushEvent(
-      "form_submit_success",
+      "form_submit",
       getFormTrackingPayload({
+        model: isTypeA ? modelInterest : pageModel,
         interest_type: isTypeA ? null : interestType || null,
+        model_interest: isTypeA ? modelInterest : null,
+        has_message: Boolean(message.trim()),
         version: isTypeA ? null : version || null,
       }),
     );
