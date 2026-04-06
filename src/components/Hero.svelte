@@ -25,6 +25,7 @@
 
   function trackHeroCtaClick(sourceLabel: string, ctaType: string) {
     pushLinkEvent({
+      event: "hero_link_click",
       page: page.url.pathname,
       destination: "#lead-form",
       title: sourceLabel,

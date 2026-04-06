@@ -9,6 +9,7 @@
 
   function trackHomeCtaClick(sourceLabel: string, destinationPath: string) {
     pushLinkEvent({
+      event: 'home_link_click',
       page: '/',
       destination: destinationPath,
       title: sourceLabel

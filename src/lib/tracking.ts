@@ -5,7 +5,6 @@ type LinkTrackingPayload = {
   page: string;
   destination: string;
   title: string;
-  position?: number | null;
 };
 
 declare global {
@@ -28,15 +27,14 @@ export function pushEvent(event: string, data: TrackingPayload = {}) {
 }
 
 export function pushLinkEvent({
+  event,
   page,
   destination,
   title,
-  position = null,
-}: LinkTrackingPayload) {
-  pushEvent('link', {
+}: LinkTrackingPayload & { event: string }) {
+  pushEvent(event, {
     page,
     destination,
     title,
-    position,
   });
 }

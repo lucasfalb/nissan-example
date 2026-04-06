@@ -18,7 +18,6 @@
       transitionKey?: string;
       category?: string;
       section?: string;
-      position?: number;
     };
   }>();
 
@@ -46,10 +45,10 @@
     });
 
     pushLinkEvent({
+      event: "model_card_link_click",
       page: page.url.pathname,
       destination: card.path,
       title: card.title,
-      position: card.position ?? null,
     });
   }
 </script>

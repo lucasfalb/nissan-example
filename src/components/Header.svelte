@@ -28,6 +28,7 @@
     sourceLabel: string,
   ) {
     pushLinkEvent({
+      event: "header_link_click",
       page: page.url.pathname,
       destination: destinationPath,
       title: sourceLabel,

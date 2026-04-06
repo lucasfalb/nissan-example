@@ -4,6 +4,7 @@
 
   function trackFooterClick(destinationPath: string, sourceLabel: string) {
     pushLinkEvent({
+      event: "footer_link_click",
       page: page.url.pathname,
       destination: destinationPath,
       title: sourceLabel,

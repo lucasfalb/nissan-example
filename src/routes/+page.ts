@@ -41,8 +41,7 @@ export const load: PageLoad = ({ url }) => {
     bannerKey: page.bannerKey,
     transitionKey: page.seo.canonicalPath,
     category: 'new_model',
-    section: 'models_hub',
-    position: index + 1
+    section: 'models_hub'
   }));
 
   return {

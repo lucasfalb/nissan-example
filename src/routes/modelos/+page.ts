@@ -5,7 +5,7 @@ import { modelSlugs, pageDefinitions } from '$lib/page-definitions';
 export const prerender = true;
 
 export const load: PageLoad = ({ url }) => {
-  const cards = modelSlugs.map((slug, index) => {
+  const cards = modelSlugs.map((slug) => {
     const page = pageDefinitions[slug];
 
     return {
@@ -15,8 +15,7 @@ export const load: PageLoad = ({ url }) => {
       bannerKey: page.bannerKey,
       transitionKey: page.seo.canonicalPath,
       category: 'new_model',
-      section: 'models_hub',
-      position: index + 1
+      section: 'models_hub'
     };
   });
 
