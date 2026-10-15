@@ -17,20 +17,20 @@ export const pageDefinitions = {
   popup: createCampaignPage({
     slug: 'popup',
     kind: 'campaign',
-    title: 'Popup Campaign',
-    subtitle: 'Descubra a campanha certa para si e deixe os seus dados para ser contactado sem demoras.',
+    title: 'Explore as campanhas Nissan',
+    subtitle: 'Procura um Nissan? Indique o modelo que lhe interessa e peça informações ou uma proposta à equipa comercial.',
     eyebrow: 'Campanhas Nissan',
     categoryLabel: 'Campanha',
     bannerKey: 'POPUP',
     highlights: [
-      'Condições especiais em modelos selecionados',
-      'Resposta rápida da equipa comercial',
-      'Marcação simples de test drive'
+      'Informações sobre o modelo de interesse',
+      'Pedido de proposta à equipa comercial',
+      'Espaço para indicar o que procura'
     ],
     seo: {
-      title: 'Campanhas Nissan | Ofertas e Pedido de Contacto',
+      title: 'Campanhas Nissan | Informações e Pedido de Proposta',
       description:
-        'Conheça campanhas Nissan em destaque, consulte ofertas comerciais e peça contacto para test drive, proposta ou mais informações.',
+        'Explore as campanhas Nissan. Indique o modelo que lhe interessa e peça informações ou uma proposta através do formulário de contacto.',
       canonicalPath: '/campanhas/popup/'
     }
   }),
@@ -38,19 +38,19 @@ export const pageDefinitions = {
     slug: 'happiniss-days',
     kind: 'campaign',
     title: 'Happiniss Days',
-    subtitle: 'Uma campanha desenhada para aproximar o seu próximo Nissan com mais vantagens e menos espera.',
+    subtitle: 'Conheça a campanha Happiniss Days. Escolha o modelo de interesse e peça esclarecimentos sobre as condições aplicáveis.',
     eyebrow: 'Campanhas Nissan',
     categoryLabel: 'Campanha',
     bannerKey: 'HAPPINISS_DAYS',
     highlights: [
-      'Condições exclusivas por tempo limitado',
-      'Acompanhamento por consultor dedicado',
-      'Catálogo digital imediato'
+      'Informações sobre a campanha Happiniss Days',
+      'Esclarecimentos sobre as condições aplicáveis',
+      'Pedido de contacto sobre o modelo escolhido'
     ],
     seo: {
-      title: 'Happiniss Days | Campanha Nissan com Ofertas Especiais',
+      title: 'Happiniss Days | Informações sobre a Campanha Nissan',
       description:
-        'Descubra a campanha Happiniss Days da Nissan com condições especiais, acompanhamento comercial e pedido rápido de contacto.',
+        'Conheça a campanha Happiniss Days da Nissan. Indique o modelo de interesse e peça esclarecimentos sobre as condições aplicáveis.',
       canonicalPath: '/campanhas/happiniss-days/'
     }
   }),

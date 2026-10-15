@@ -49,9 +49,8 @@
           <p
             class="m-0 text-justify text-[15px] leading-[1.6] text-neutral-600 sm:text-center"
           >
-            Explore campanhas em destaque, encontre o modelo certo e avance para
-            o próximo passo com mais contexto, menos fricção e uma navegação
-            mais direta.
+            Explore as campanhas Nissan, conheça a gama e peça informações sobre o
+            modelo que lhe interessa.
           </p>
         </div>
 
@@ -109,8 +108,8 @@
             Ofertas em destaque
           </h3>
           <p class="text-[14px] leading-[1.6] text-neutral-600">
-            Veja campanhas, ofertas comerciais e chamadas de ação mais diretas
-            para gerar contacto.
+            Conheça a campanha Happiniss Days e peça informações sobre as condições
+            aplicáveis ao modelo que lhe interessa.
           </p>
         </a>
         <a

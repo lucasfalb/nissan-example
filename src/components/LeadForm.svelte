@@ -319,8 +319,12 @@
         <span class="text-[#c3002f]">escolha.</span>
       </h2>
       <p class="mt-4 max-w-[34ch] text-[15px] leading-relaxed text-neutral-600">
-        Fale com a equipa certa, receba uma proposta clara e avance mais
-        depressa para o Nissan que procura.
+        {#if page.kind === 'campaign'}
+          Indique o modelo que lhe interessa e descreva o que procura para orientar o contacto da equipa comercial.
+        {:else}
+          Fale com a equipa certa, receba uma proposta clara e avance mais
+          depressa para o Nissan que procura.
+        {/if}
       </p>
     </div>
 
@@ -328,9 +332,17 @@
       <p
         class="mb-4 text-[12px] font-bold uppercase tracking-[0.1rem] text-neutral-400"
       >
-        Porque converter aqui
+        {page.kind === 'campaign' ? 'O que pode pedir' : 'Porque converter aqui'}
       </p>
       <ul class="m-0 grid gap-3 p-0">
+        {#if page.kind === 'campaign'}
+          {#each page.highlights as highlight}
+            <li class="flex list-none items-start gap-3 text-[14px] leading-tight text-neutral-200">
+              <span class="font-bold text-[#c3002f]">-</span>
+              <span>{highlight}</span>
+            </li>
+          {/each}
+        {:else}
         <li
           class="flex list-none items-start gap-3 text-[14px] leading-tight text-neutral-200"
         >
@@ -352,6 +364,7 @@
           <span class="font-bold text-[#c3002f]">-</span>
           <span>Contacto simples, sem passos desnecessarios.</span>
         </li>
+        {/if}
       </ul>
     </div>
   </div>
@@ -370,7 +383,11 @@
           Peça contacto
         </h2>
         <p class="mt-3 max-w-[44ch] text-[14px] leading-[1.6] text-neutral-600">
-          Um formulário objetivo, com campos claros e sem excesso de informação.
+          {#if page.kind === 'campaign'}
+            Preencha os seus dados e indique o modelo sobre o qual pretende receber informações.
+          {:else}
+            Um formulário objetivo, com campos claros e sem excesso de informação.
+          {/if}
         </p>
       </div>
 
